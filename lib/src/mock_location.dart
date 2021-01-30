@@ -1,18 +1,25 @@
-import 'dart:math';
+import 'dart:math' show pi, cos, sin, sqrt, pow, asin;
 
 import 'constants.dart' show random;
 
 final R = 6372800;
 
-/// Generate random latitude longitude in `radius` from `centerLat` to `centerLon`, inclusive.
-/// If any argument is null, random location will be returned.
-Map<String, double> mockLocation([double latitude, double longitude, int radius]) {
-  Map<String, double> location = Map();
+/// Generate random location represented with `latitude` and `longitude` in a given `radius`.
+///
+/// Returns `Map<String, double>` representing latitude and longitude, respectively.
+///
+/// [latitude] and [longitude] represent points on map in a given [radius].
+///
+/// Example usage:
+Map<String, double> mockLocation([double latitude = 0.0,
+      double longitude = 0.0,
+      int radius = 1000]) {
 
-  if (latitude == null || longitude == null || radius == null) {
-    location['lat'] = random.nextDouble() * 90 * (random.nextBool() ? 1 : -1);
-    location['lon'] = random.nextDouble() * 180 * (random.nextBool() ? 1 : -1);
-  } else {
+  Map<String, double> location = Map.fromIterables(['longitude', 'latitude'],
+      [90, 180].map((e) => random.nextDouble() * e * random.nextInt(2)));
+
+  if (latitude != 0.0 || longitude != 0.0) {
+
     // Convert radius from meters to degrees
     double radiusInDegrees = radius / 111000.0;
 
@@ -24,11 +31,13 @@ Map<String, double> mockLocation([double latitude, double longitude, int radius]
     double y = w * sin(t);
 
     // Adjust the x-coordinate for the shrinking of the east-west distances
-    location['lon'] = x / cos(_toRadians(latitude)) + longitude;
-    location['lat'] = y + latitude;
+    location['longitude'] = x / cos(_toRadians(latitude)) + longitude;
+    location['latitude'] = y + latitude;
+
   }
 
   return location;
+
 }
 
 /// Distance between two locations calculated with Haversine formula.

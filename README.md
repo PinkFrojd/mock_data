@@ -19,6 +19,7 @@ API provides generation of:
 - *UUIDv4* and *Timestamp-first UUIDs*
 - *URL*s with many fragments
 - *IPv4* and *IPv6*
+- *Location* represented with latitude and longitude
 
 ## Usage
 
@@ -46,7 +47,8 @@ main() {
   mockColor('rgb');     // Generate color represented in RGB format.
   
   mockUUID();           // Generate UUIDv4
-  
+
+  mockLocation();       // Generate random location represented with latitude and longitude.
 }
 ```
 
@@ -55,6 +57,7 @@ These are some basic examples. There are many more methods and they all support 
 ### Contributors
 - [Dinko Pehar](https://github.com/dinko-pehar)
 - [Nagasai Bodepudi](https://github.com/nagasaiBodepudi)
+- [Ivan Murashov](https://github.com/kifio)
 
 ### License
 [MIT][]
